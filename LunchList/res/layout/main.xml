@@ -15,6 +15,7 @@
             android:id="@+id/name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#3C33E8"
             android:text="Name:" />
 
         <EditText
