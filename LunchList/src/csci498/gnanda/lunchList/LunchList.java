@@ -17,6 +17,8 @@ public class LunchList extends Activity {
 	
 	private List<Restaurant> model = new ArrayList<Restaurant>();
 	private ArrayAdapter<Restaurant> adapter = null;
+	private RadioButton a = null;
+	private RadioGroup types = null;
 	
     /** Called when the activity is first created. */
     @Override
@@ -27,6 +29,12 @@ public class LunchList extends Activity {
         Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(onSave);    
         
+        types = (RadioGroup) findViewById(R.id.types);
+        
+	    a = new RadioButton(this);
+	    a.setText("testButton");
+	    types.addView(a);
+
         setUpListAdapter();
     }
     
@@ -56,7 +64,7 @@ public class LunchList extends Activity {
 	};
 
 	private void addRadioGroupType(Restaurant r) {
-	    RadioGroup types = (RadioGroup) findViewById(R.id.types);
+	    //RadioGroup types = (RadioGroup) findViewById(R.id.types);
 	    
 	    switch (types.getCheckedRadioButtonId()) {
 	      case R.id.sit_down:
@@ -71,10 +79,6 @@ public class LunchList extends Activity {
 	        r.setType("delivery");
 	        break;
 	    }
-	    
-	    //RadioButton a = new RadioButton(this);
-	    //a.setText("testButton");
-	    //addContentView(a, null);
-	    //types.addView(a);
 	}    
+	
 }
