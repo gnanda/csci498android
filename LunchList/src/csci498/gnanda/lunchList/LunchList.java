@@ -72,9 +72,9 @@ public class LunchList extends Activity {
 	        break;
 	    }
 	    
-	    RadioButton a = new RadioButton(this);
-	    a.setText("testButton");
-	    addContentView(a, null);
-	    types.addView(a);
+	    //RadioButton a = new RadioButton(this);
+	    //a.setText("testButton");
+	    //addContentView(a, null);
+	    //types.addView(a);
 	}    
 }
