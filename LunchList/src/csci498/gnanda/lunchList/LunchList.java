@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 public class LunchList extends Activity {
@@ -70,5 +71,10 @@ public class LunchList extends Activity {
 	        r.setType("delivery");
 	        break;
 	    }
+	    
+	    RadioButton a = new RadioButton(this);
+	    a.setText("testButton");
+	    addContentView(a, null);
+	    types.addView(a);
 	}    
 }
