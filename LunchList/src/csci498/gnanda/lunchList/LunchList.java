@@ -22,7 +22,7 @@ public class LunchList extends Activity {
 	private RadioGroup types = null;
 	
 	private List<String> addresses = new ArrayList<String>();
-	private ArrayAdapter<String> addressAdapter = null;
+	private ArrayAdapter<String> addressesAdapter = null;
 	
     /** Called when the activity is first created. */
     @Override
@@ -47,7 +47,7 @@ public class LunchList extends Activity {
 		adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, model);
 		list.setAdapter(adapter);
 		
-		addressAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
+		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
 	}
 
 	private View.OnClickListener onSave = new View.OnClickListener() {
@@ -58,7 +58,7 @@ public class LunchList extends Activity {
 			
 			EditText name = (EditText) findViewById(R.id.name);
 			AutoCompleteTextView address = (AutoCompleteTextView) findViewById(R.id.addr);
-			address.setAdapter(addressAdapter);
+			address.setAdapter(addressesAdapter);
 			
 			r.setName(name.getText().toString());
 			r.setAddress(address.getText().toString());
@@ -66,7 +66,7 @@ public class LunchList extends Activity {
 			addRadioGroupType(r);
 			
 			adapter.add(r);
-			addressAdapter.add(address.getText().toString());
+			addressesAdapter.add(address.getText().toString());
 		}
 		
 	};
