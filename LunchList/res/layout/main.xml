@@ -4,13 +4,14 @@
     android:layout_height="match_parent" >
 	<ScrollView 
 	    android:layout_width="match_parent"	    
-	    android:layout_height="wrap_content"	   > 
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"	   > 
 	        
 	    <TableLayout
         android:id="@+id/details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+       
         android:shrinkColumns="1"
         android:stretchColumns="1" >
 
@@ -25,7 +26,7 @@
 
             <TextView android:text="Address:" />
 
-            <EditText android:id="@+id/addr" />
+            <AutoCompleteTextView android:id="@+id/addr" />
             
         </TableRow>
 
@@ -47,48 +48,6 @@
                 <RadioButton
                     android:id="@+id/delivery"
                     android:text="Delivery" />
-
-                <RadioButton
-                    android:id="@+id/radioButton1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/radioButton3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/radioButton4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/radioButton5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/radioButton6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/radioButton7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
 
                 <RadioButton
                     android:id="@+id/radioButton8"
@@ -114,7 +73,7 @@
         
     </TableLayout>
 	</ScrollView>
-    <ListView
+    <Spinner
         android:id="@+id/restaurants"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
