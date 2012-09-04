@@ -17,7 +17,7 @@ import android.widget.Spinner;
 public class LunchList extends Activity {
 	
 	private List<Restaurant> model = new ArrayList<Restaurant>();
-	private ArrayAdapter<Restaurant> adapter = null;
+	private RestaurantAdapter adapter = null;
 	private RadioButton a = null;
 	private RadioGroup types = null;
 	
@@ -44,7 +44,8 @@ public class LunchList extends Activity {
     
     private void setUpListAdapter() {
 		Spinner list = (Spinner) findViewById(R.id.restaurants);
-		adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, model);
+		//adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, model);
+		adapter = new RestaurantAdapter();
 		list.setAdapter(adapter);
 		
 		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
@@ -89,4 +90,11 @@ public class LunchList extends Activity {
 	    }
 	}    
 	
+	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
+		RestaurantAdapter() {
+			super(LunchList.this,
+					android.R.layout.simple_list_item_1,
+					model);
+		}
+	}
 }
