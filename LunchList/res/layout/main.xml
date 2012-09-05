@@ -2,16 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-	<ScrollView 
-	    android:layout_width="match_parent"	    
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"	   > 
 	        
 	    <TableLayout
         android:id="@+id/details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       
+        android:layout_alignParentBottom="true"
         android:shrinkColumns="1"
         android:stretchColumns="1" >
 
@@ -60,7 +56,6 @@
             android:text="Save" />
         
     </TableLayout>
-	</ScrollView>
     <ListView
         android:id="@+id/restaurants"
         android:layout_width="match_parent"
