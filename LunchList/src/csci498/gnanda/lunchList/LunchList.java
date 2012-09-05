@@ -13,16 +13,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 public class LunchList extends Activity {
 	
 	private List<Restaurant> model = new ArrayList<Restaurant>();
 	private RestaurantAdapter adapter = null;
-	private RadioButton a = null;
+//	private RadioButton a = null;
 	private RadioGroup types = null;
 	
 	private List<String> addresses = new ArrayList<String>();
@@ -39,15 +39,15 @@ public class LunchList extends Activity {
         
         types = (RadioGroup) findViewById(R.id.types);
         
-	    a = new RadioButton(this);
-	    a.setText("testButton");
-	    types.addView(a);
+//	    a = new RadioButton(this);
+//	    a.setText("testButton");
+//	    types.addView(a);
 
         setUpListAdapter();
     }
     
     private void setUpListAdapter() {
-		Spinner list = (Spinner) findViewById(R.id.restaurants);
+		ListView list = (ListView) findViewById(R.id.restaurants);
 		//adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, model);
 		adapter = new RestaurantAdapter();
 		list.setAdapter(adapter);

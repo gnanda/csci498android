@@ -48,19 +48,7 @@
                 <RadioButton
                     android:id="@+id/delivery"
                     android:text="Delivery" />
-
-                <RadioButton
-                    android:id="@+id/radioButton8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/radioButton9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton" />
-                
+               
             </RadioGroup>
             
         </TableRow>
@@ -73,7 +61,7 @@
         
     </TableLayout>
 	</ScrollView>
-    <Spinner
+    <ListView
         android:id="@+id/restaurants"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
