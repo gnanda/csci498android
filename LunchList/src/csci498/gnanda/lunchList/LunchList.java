@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,6 +140,9 @@ public class LunchList extends Activity {
 		void populateFrom(Restaurant r) {
 			name.setText(r.getName());
 			address.setText(r.getAddress());
+			
+			if (r.getName().equals("Qdoba"))
+				name.setTextColor(Color.YELLOW);
 			
 			if (r.getType().equals("sit_down")) {
 				icon.setImageResource(R.drawable.ball_red);
