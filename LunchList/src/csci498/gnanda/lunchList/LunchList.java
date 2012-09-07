@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import android.app.TabActivity;
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,11 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 @SuppressWarnings("deprecation")
-public class LunchList extends TabActivity {
+public class LunchList extends Activity {
 	
 	private List<Restaurant> model = new ArrayList<Restaurant>();
 	private RestaurantAdapter adapter = null;
@@ -32,6 +32,7 @@ public class LunchList extends TabActivity {
 	private EditText name = null;
 	private AutoCompleteTextView address = null;
 	private DatePicker dates = null;
+	private ViewFlipper viewFlipper = null;
 
 	
 	private List<String> addresses = new ArrayList<String>();
@@ -54,7 +55,7 @@ public class LunchList extends TabActivity {
 		      types.check(R.id.delivery);
 		    }		   
 		  	    
-		    getTabHost().setCurrentTab(1);
+		    //getTabHost().setCurrentTab(1);
 		}
 		
 	};
@@ -79,20 +80,29 @@ public class LunchList extends TabActivity {
 //	    a.setText("testButton");
 //	    types.addView(a);
         setUpListAdapter();
-        setUpTabs();
+//        setUpTabs();
+        viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
+        Button flipper = (Button) findViewById(R.id.flipper);
+        flipper.setOnClickListener(viewFlipListener);
     }
     
-    private void setUpTabs() {
-    	TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
-    	spec.setContent(R.id.restaurants);
-    	spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
-    	getTabHost().addTab(spec);
-    	spec = getTabHost().newTabSpec("tag2");
-    	spec.setContent(R.id.details);
-    	spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
-    	getTabHost().addTab(spec);
-    	getTabHost().setCurrentTab(0);
-    }
+    private View.OnClickListener viewFlipListener = new View.OnClickListener() {
+    	public void onClick(View v) {
+    		viewFlipper.setDisplayedChild((viewFlipper.getDisplayedChild() + 1) % 2);
+    	}
+    };
+    
+//    private void setUpTabs() {
+//    	TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
+//    	spec.setContent(R.id.restaurants);
+//    	spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
+//    	getTabHost().addTab(spec);
+//    	spec = getTabHost().newTabSpec("tag2");
+//    	spec.setContent(R.id.details);
+//    	spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
+//    	getTabHost().addTab(spec);
+//    	getTabHost().setCurrentTab(0);
+//    }
     
     private void setUpListAdapter() {
 		ListView list = (ListView) findViewById(R.id.restaurants);
