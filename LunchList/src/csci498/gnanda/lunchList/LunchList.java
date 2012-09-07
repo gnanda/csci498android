@@ -3,7 +3,7 @@ package csci498.gnanda.lunchList;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
+import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,11 +14,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TextView;
 
-public class LunchList extends Activity {
+@SuppressWarnings("deprecation")
+public class LunchList extends TabActivity {
 	
 	private List<Restaurant> model = new ArrayList<Restaurant>();
 	private RestaurantAdapter adapter = null;
@@ -44,10 +46,23 @@ public class LunchList extends Activity {
 //	    types.addView(a);
 
         setUpListAdapter();
+        setUpTabs();
+    }
+    
+    private void setUpTabs() {
+    	TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
+    	spec.setContent(R.id.restaurants);
+    	spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
+    	getTabHost().addTab(spec);
+    	spec = getTabHost().newTabSpec("tag2");
+    	spec.setContent(R.id.details);
+    	spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
+    	getTabHost().addTab(spec);
+    	getTabHost().setCurrentTab(0);
     }
     
     private void setUpListAdapter() {
-		Spinner list = (Spinner) findViewById(R.id.restaurants);
+		ListView list = (ListView) findViewById(R.id.restaurants);
 		//adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, model);
 		adapter = new RestaurantAdapter();
 		list.setAdapter(adapter);
@@ -77,7 +92,6 @@ public class LunchList extends Activity {
 	};
 
 	private void addRadioGroupType(Restaurant r) {
-	    //RadioGroup types = (RadioGroup) findViewById(R.id.types);
 	    
 	    switch (types.getCheckedRadioButtonId()) {
 	      case R.id.sit_down:
