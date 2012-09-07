@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -30,6 +31,14 @@ public class LunchList extends TabActivity {
 	private List<String> addresses = new ArrayList<String>();
 	private ArrayAdapter<String> addressesAdapter = null;
 	
+	private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
+		
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			
+		}
+		
+	};
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +53,7 @@ public class LunchList extends TabActivity {
 //	    a = new RadioButton(this);
 //	    a.setText("testButton");
 //	    types.addView(a);
-
+        addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
         setUpListAdapter();
         setUpTabs();
     }
@@ -66,8 +75,9 @@ public class LunchList extends TabActivity {
 		//adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, model);
 		adapter = new RestaurantAdapter();
 		list.setAdapter(adapter);
+		list.setOnItemClickListener(onListClick);
 		
-		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
+		
 	}
 
 	private View.OnClickListener onSave = new View.OnClickListener() {
