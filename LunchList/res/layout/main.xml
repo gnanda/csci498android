@@ -33,21 +33,18 @@
                 android:stretchColumns="1" >
 
                 <TableRow>
-
                     <TextView android:text="Name:" />
 
                     <EditText android:id="@+id/name" />
                 </TableRow>
 
                 <TableRow>
-
                     <TextView android:text="Address:" />
 
                     <AutoCompleteTextView android:id="@+id/addr" />
                 </TableRow>
-
+                
                 <TableRow>
-
                     <TextView android:text="Type:" />
 
                     <RadioGroup android:id="@+id/types" >
@@ -66,12 +63,17 @@
                             android:text="Delivery" />
                     </RadioGroup>
                 </TableRow>
+                
+                <TableRow>
+                    <DatePicker android:id="@+id/date" />
+                </TableRow>
 
                 <Button
                     android:id="@+id/save"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Save" />
+
             </TableLayout>
         </FrameLayout>
     </LinearLayout>

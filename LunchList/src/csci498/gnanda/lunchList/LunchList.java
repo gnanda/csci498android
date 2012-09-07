@@ -1,6 +1,7 @@
 package csci498.gnanda.lunchList;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.app.TabActivity;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,6 +31,7 @@ public class LunchList extends TabActivity {
 	private RadioGroup types = null;
 	private EditText name = null;
 	private AutoCompleteTextView address = null;
+	private DatePicker dates = null;
 
 	
 	private List<String> addresses = new ArrayList<String>();
@@ -65,13 +68,12 @@ public class LunchList extends TabActivity {
         name = (EditText) findViewById(R.id.name);
 		address = (AutoCompleteTextView) findViewById(R.id.addr);
 		types = (RadioGroup) findViewById(R.id.types);
+		dates = (DatePicker) findViewById(R.id.date);
 		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
 		address.setAdapter(addressesAdapter);
         
         Button save = (Button) findViewById(R.id.save);
-        save.setOnClickListener(onSave);    
-        
-        
+        save.setOnClickListener(onSave);           
         
 //	    a = new RadioButton(this);
 //	    a.setText("testButton");
@@ -108,11 +110,10 @@ public class LunchList extends TabActivity {
 		public void onClick(View v) {
 			Restaurant r = new Restaurant();
 			
-			
-			
 			r.setName(name.getText().toString());
 			r.setAddress(address.getText().toString());
-			
+			r.setDate(new Date(dates.getYear(), dates.getMonth(), dates.getDayOfMonth()));
+				
 			addRadioGroupType(r);
 			
 			adapter.add(r);

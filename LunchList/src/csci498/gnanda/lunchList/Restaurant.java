@@ -1,10 +1,13 @@
 package csci498.gnanda.lunchList;
 
+import java.util.Date;
+
 public class Restaurant {
 	
 	private String name = "";
 	private String address = "";
 	private String type = "";
+	private Date date;
 	
 	public String getName() {
 		return name;
@@ -34,4 +37,14 @@ public class Restaurant {
 	public String toString() {
 		return getName();
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+
 }
