@@ -27,6 +27,9 @@ public class LunchList extends TabActivity {
 	private RestaurantAdapter adapter = null;
 //	private RadioButton a = null;
 	private RadioGroup types = null;
+	private EditText name = null;
+	private AutoCompleteTextView address = null;
+
 	
 	private List<String> addresses = new ArrayList<String>();
 	private ArrayAdapter<String> addressesAdapter = null;
@@ -45,15 +48,20 @@ public class LunchList extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        name = (EditText) findViewById(R.id.name);
+		address = (AutoCompleteTextView) findViewById(R.id.addr);
+		types = (RadioGroup) findViewById(R.id.types);
+		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
+		address.setAdapter(addressesAdapter);
+        
         Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(onSave);    
         
-        types = (RadioGroup) findViewById(R.id.types);
+        
         
 //	    a = new RadioButton(this);
 //	    a.setText("testButton");
 //	    types.addView(a);
-        addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
         setUpListAdapter();
         setUpTabs();
     }
@@ -86,9 +94,7 @@ public class LunchList extends TabActivity {
 		public void onClick(View v) {
 			Restaurant r = new Restaurant();
 			
-			EditText name = (EditText) findViewById(R.id.name);
-			AutoCompleteTextView address = (AutoCompleteTextView) findViewById(R.id.addr);
-			address.setAdapter(addressesAdapter);
+			
 			
 			r.setName(name.getText().toString());
 			r.setAddress(address.getText().toString());
