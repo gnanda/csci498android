@@ -65,7 +65,10 @@
                 </TableRow>
                 
                 <TableRow>
-                    <DatePicker android:id="@+id/date" />
+                    <DatePicker 
+                        android:id="@+id/date" 
+                        android:calendarViewShown="false"  
+                        />
                 </TableRow>
 
                 <Button

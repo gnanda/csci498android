@@ -52,8 +52,8 @@ public class LunchList extends TabActivity {
 		    }
 		    else {
 		      types.check(R.id.delivery);
-		    }
-		    
+		    }		   
+		  	    
 		    getTabHost().setCurrentTab(1);
 		}
 		
@@ -100,8 +100,6 @@ public class LunchList extends TabActivity {
 		adapter = new RestaurantAdapter();
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(onListClick);
-		
-		
 	}
 
 	private View.OnClickListener onSave = new View.OnClickListener() {
@@ -122,8 +120,7 @@ public class LunchList extends TabActivity {
 		
 	};
 
-	private void addRadioGroupType(Restaurant r) {
-	    
+	private void addRadioGroupType(Restaurant r) {	    
 	    switch (types.getCheckedRadioButtonId()) {
 	      case R.id.sit_down:
 	        r.setType("sit_down");
