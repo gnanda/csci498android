@@ -7,6 +7,8 @@ import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -130,6 +132,12 @@ public class LunchList extends TabActivity {
 	        break;
 	    }
 	}    
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		new MenuInflater(this).inflate(R.menu.option, menu);
+		return super.onCreateOptionsMenu(menu);		
+	}
 	
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 		
