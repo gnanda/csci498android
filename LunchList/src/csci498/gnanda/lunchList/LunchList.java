@@ -29,6 +29,7 @@ public class LunchList extends TabActivity {
 	private RadioGroup types = null;
 	private EditText name = null;
 	private AutoCompleteTextView address = null;
+	private EditText notes = null;
 
 	
 	private List<String> addresses = new ArrayList<String>();
@@ -40,6 +41,7 @@ public class LunchList extends TabActivity {
 			Restaurant r = model.get(position);		    
 		    name.setText(r.getName());
 		    address.setText(r.getAddress());
+		    notes.setText(r.getNotes());
 		    
 		    if (r.getType().equals("sit_down")) {
 		      types.check(R.id.sit_down);
@@ -65,17 +67,13 @@ public class LunchList extends TabActivity {
         name = (EditText) findViewById(R.id.name);
 		address = (AutoCompleteTextView) findViewById(R.id.addr);
 		types = (RadioGroup) findViewById(R.id.types);
+		notes = (EditText) findViewById(R.id.notes);
 		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
 		address.setAdapter(addressesAdapter);
         
         Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(onSave);    
         
-        
-        
-//	    a = new RadioButton(this);
-//	    a.setText("testButton");
-//	    types.addView(a);
         setUpListAdapter();
         setUpTabs();
     }
@@ -94,12 +92,9 @@ public class LunchList extends TabActivity {
     
     private void setUpListAdapter() {
 		ListView list = (ListView) findViewById(R.id.restaurants);
-		//adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, model);
 		adapter = new RestaurantAdapter();
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(onListClick);
-		
-		
 	}
 
 	private View.OnClickListener onSave = new View.OnClickListener() {
@@ -107,11 +102,9 @@ public class LunchList extends TabActivity {
 		@Override
 		public void onClick(View v) {
 			Restaurant r = new Restaurant();
-			
-			
-			
 			r.setName(name.getText().toString());
 			r.setAddress(address.getText().toString());
+			r.setNotes(notes.getText().toString());
 			
 			addRadioGroupType(r);
 			
