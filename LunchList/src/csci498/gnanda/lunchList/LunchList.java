@@ -161,10 +161,17 @@ public class LunchList extends TabActivity {
 	    AlertDialog alertDialog = alertDialogBuilder.create();
 	    alertDialog.show();
 	    
-	    return(true);
+	    return true ;
+	  }
+	  if (item.getItemId() == R.id.switchTab) {
+		  String [] tabNames = { "List", "Details" };
+		  TabHost tabHost = getTabHost();	
+		  int currentTabNumber = tabHost.getCurrentTab();
+		  tabHost.setCurrentTab((currentTabNumber + 1) % tabNames.length);
+		  
 	  }
 	  
-	  return(super.onOptionsItemSelected(item));
+	  return super.onOptionsItemSelected(item);
 	}
 	
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
