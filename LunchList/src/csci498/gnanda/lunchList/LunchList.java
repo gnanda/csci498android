@@ -3,6 +3,7 @@ package csci498.gnanda.lunchList;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,7 +23,6 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 @SuppressWarnings("deprecation")
 public class LunchList extends TabActivity {
@@ -146,12 +146,20 @@ public class LunchList extends TabActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	  if (item.getItemId() == R.id.toast) {
 	    String message = "No restaurant selected";
+	    String rName = "None";
 	    
 	    if (current != null) {
 	      message = current.getNotes();
+	      rName = current.getName();
 	    }
 	    
-	    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+//	    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+	    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+	    alertDialogBuilder.setTitle("Notes: " + rName);
+	    alertDialogBuilder.setMessage(message);
+	    
+	    AlertDialog alertDialog = alertDialogBuilder.create();
+	    alertDialog.show();
 	    
 	    return(true);
 	  }
