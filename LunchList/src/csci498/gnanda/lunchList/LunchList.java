@@ -35,6 +35,8 @@ public class LunchList extends TabActivity {
 	private AutoCompleteTextView address = null;
 	private EditText notes = null;
 	private Restaurant current = null;
+	
+	public static final String [] tabNames = { "Details", "List" };
 
 	
 	private List<String> addresses = new ArrayList<String>();
@@ -163,12 +165,11 @@ public class LunchList extends TabActivity {
 	    
 	    return true ;
 	  }
-	  if (item.getItemId() == R.id.switchTab) {
-		  String [] tabNames = { "List", "Details" };
+	  if (item.getItemId() == R.id.switchTab) {		  
 		  TabHost tabHost = getTabHost();	
-		  int currentTabNumber = tabHost.getCurrentTab();
-		  tabHost.setCurrentTab((currentTabNumber + 1) % tabNames.length);
-		  
+		  int newTabNumber = (tabHost.getCurrentTab() + 1) % tabNames.length;
+		  tabHost.setCurrentTab(newTabNumber);
+		  item.setTitle(tabNames[newTabNumber]);
 	  }
 	  
 	  return super.onOptionsItemSelected(item);

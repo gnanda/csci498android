@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/toast" android:icon="@drawable/toast" android:title="Raise Toast"></item>
-    <item android:id="@+id/switchTab" android:icon="@drawable/list" android:title="List"></item>
-    
-
+    <item android:id="@+id/switchTab" android:icon="@drawable/list" android:title="Details"></item>
 </menu>
