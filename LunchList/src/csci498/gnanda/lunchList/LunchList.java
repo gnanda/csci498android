@@ -6,6 +6,8 @@ import java.util.List;
 import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,7 +41,9 @@ public class LunchList extends TabActivity {
 	private int progress;
 
 	private List<String> addresses = new ArrayList<String>();
-	private ArrayAdapter<String> addressesAdapter = null;
+	private ArrayAdapter<String> addressesAdapter = null;	
+
+	private Handler handler = new Handler();
 
 	/** Called when the activity is first created. */
 	@Override
@@ -196,6 +200,10 @@ public class LunchList extends TabActivity {
 			});
 		}
 	};
+	
+	public void handleMessage(Message msg) {
+		
+	}
 
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 
