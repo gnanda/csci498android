@@ -8,6 +8,7 @@ import android.app.AlertDialog.Builder;
 import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,6 +39,7 @@ public class LunchList extends TabActivity {
 	private Restaurant current = null;
 	
 	public static final String [] tabNames = { "Details", "List" };
+	public static final String TAG = "LunchList";
 
 	
 	private List<String> addresses = new ArrayList<String>();
@@ -180,6 +182,9 @@ public class LunchList extends TabActivity {
 		AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
 		errorDialogBuilder.setTitle("Error");
 		errorDialogBuilder.setMessage(message);
+		
+		Log.e(TAG, message);
+		
 		
 		AlertDialog errorDialog = errorDialogBuilder.create();
 		errorDialog.show();
