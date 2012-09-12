@@ -6,12 +6,14 @@ import java.util.List;
 import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -35,11 +37,53 @@ public class LunchList extends TabActivity {
 	private AutoCompleteTextView address = null;
 	private EditText notes = null;
 	private Restaurant current = null;
-
+	private int progress;
 	
 	private List<String> addresses = new ArrayList<String>();
 	private ArrayAdapter<String> addressesAdapter = null;
 	
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_PROGRESS);
+        setContentView(R.layout.main);
+        
+        name = (EditText) findViewById(R.id.name);
+		address = (AutoCompleteTextView) findViewById(R.id.addr);
+		types = (RadioGroup) findViewById(R.id.types);
+		notes = (EditText) findViewById(R.id.notes);
+		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
+		address.setAdapter(addressesAdapter);
+        
+        Button save = (Button) findViewById(R.id.save);
+        save.setOnClickListener(onSave);    
+        
+        setUpListAdapter();
+        setUpTabs();
+    }
+    
+    private void setUpTabs() {
+    	TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
+    	spec.setContent(R.id.restaurants);
+    	spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
+    	
+    	getTabHost().addTab(spec);
+    	spec = getTabHost().newTabSpec("tag2");
+    	spec.setContent(R.id.details);
+    	spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
+    	
+    	getTabHost().addTab(spec);
+    	getTabHost().setCurrentTab(0);
+    }
+    
+    private void setUpListAdapter() {
+		ListView list = (ListView) findViewById(R.id.restaurants);
+		adapter = new RestaurantAdapter();
+		list.setAdapter(adapter);
+		list.setOnItemClickListener(onListClick);
+	}
+    
 	private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
 		
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -62,45 +106,6 @@ public class LunchList extends TabActivity {
 		}
 		
 	};
-	
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        
-        name = (EditText) findViewById(R.id.name);
-		address = (AutoCompleteTextView) findViewById(R.id.addr);
-		types = (RadioGroup) findViewById(R.id.types);
-		notes = (EditText) findViewById(R.id.notes);
-		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
-		address.setAdapter(addressesAdapter);
-        
-        Button save = (Button) findViewById(R.id.save);
-        save.setOnClickListener(onSave);    
-        
-        setUpListAdapter();
-        setUpTabs();
-    }
-    
-    private void setUpTabs() {
-    	TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
-    	spec.setContent(R.id.restaurants);
-    	spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
-    	getTabHost().addTab(spec);
-    	spec = getTabHost().newTabSpec("tag2");
-    	spec.setContent(R.id.details);
-    	spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
-    	getTabHost().addTab(spec);
-    	getTabHost().setCurrentTab(0);
-    }
-    
-    private void setUpListAdapter() {
-		ListView list = (ListView) findViewById(R.id.restaurants);
-		adapter = new RestaurantAdapter();
-		list.setAdapter(adapter);
-		list.setOnItemClickListener(onListClick);
-	}
 
 	private View.OnClickListener onSave = new View.OnClickListener() {
 		
@@ -157,6 +162,10 @@ public class LunchList extends TabActivity {
 	  }
 	  
 	  return(super.onOptionsItemSelected(item));
+	}
+	
+	private void doSomeLongWork(final int incr) {
+		SystemClock.sleep(250);
 	}
 	
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
