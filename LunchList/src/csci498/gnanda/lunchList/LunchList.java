@@ -168,8 +168,11 @@ public class LunchList extends TabActivity {
 	    
 	    return(true);
 	  }
+	  else if (item.getItemId() == R.id.run) {
+		  new Thread(longTask).start();
+	  }
 	  
-	  return(super.onOptionsItemSelected(item));
+	  return super.onOptionsItemSelected(item);
 	}
 	
 	private void doSomeLongWork(final int incr) {
