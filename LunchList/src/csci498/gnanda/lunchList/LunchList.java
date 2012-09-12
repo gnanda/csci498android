@@ -42,6 +42,14 @@ public class LunchList extends TabActivity {
 	private List<String> addresses = new ArrayList<String>();
 	private ArrayAdapter<String> addressesAdapter = null;
 	
+	private Runnable longTask = new Runnable() {
+		public void run() {
+			for (int i = 0; i < 20; i++) {
+				doSomeLongWork(500);
+			}
+		}
+	};
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
