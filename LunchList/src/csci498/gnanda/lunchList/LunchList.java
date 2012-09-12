@@ -31,7 +31,6 @@ public class LunchList extends TabActivity {
 
 	private List<Restaurant> model = new ArrayList<Restaurant>();
 	private RestaurantAdapter adapter = null;
-	//	private RadioButton a = null;
 	private RadioGroup types = null;
 	private EditText name = null;
 	private AutoCompleteTextView address = null;
