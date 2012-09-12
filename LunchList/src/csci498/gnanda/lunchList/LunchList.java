@@ -50,6 +50,8 @@ public class LunchList extends TabActivity {
 			runOnUiThread(new Runnable() {
 				public void run() {
 					setProgressBarVisibility(false);
+					getTabHost().setCurrentTab(1);
+					notes.setText("OhMyGoshThatTookForeverAndDidAlmostNothing");
 				}
 			});
 		}
