@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -173,6 +174,15 @@ public class LunchList extends TabActivity {
 	  }
 	  
 	  return super.onOptionsItemSelected(item);
+	}
+	
+	public void ErrorDialog(String message) {
+		AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
+		errorDialogBuilder.setTitle("Error");
+		errorDialogBuilder.setMessage(message);
+		
+		AlertDialog errorDialog = errorDialogBuilder.create();
+		errorDialog.show();
 	}
 	
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
