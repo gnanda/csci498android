@@ -2,6 +2,7 @@ package csci498.gnanda.lunchList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import android.app.TabActivity;
 import android.graphics.Color;
@@ -43,6 +44,7 @@ public class LunchList extends TabActivity {
 	private ArrayAdapter<String> addressesAdapter = null;	
 
 	private Handler handler = new Handler();
+	private LinkedBlockingQueue<Runnable> blockingQueue = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -61,6 +63,9 @@ public class LunchList extends TabActivity {
 		Button save = (Button) findViewById(R.id.save);
 		save.setOnClickListener(onSave);    
 
+		blockingQueue = new LinkedBlockingQueue<Runnable>();
+		new Thread(FakeJob).start();		
+		
 		setUpListAdapter();
 		setUpTabs();
 	}
@@ -165,7 +170,13 @@ public class LunchList extends TabActivity {
 		else if (item.getItemId() == R.id.run) {
 			setProgressBarVisibility(true);
 			progress = 0;
-			new Thread(longTask).start();
+//			new Thread(longTask).start();
+			try {
+				blockingQueue.put(longTask);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			return true;
 		}
@@ -200,10 +211,29 @@ public class LunchList extends TabActivity {
 		}
 	};
 	
-//	public void handleMessage(Message msg) {
-//		
-//	}
-
+	private boolean running = true;
+	private Runnable FakeJob = new Runnable() {
+		public void run() {
+			while (running)
+			{
+				if (!blockingQueue.isEmpty()) {
+					try {
+						new Thread(blockingQueue.take()).start();						
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				SystemClock.sleep(100);
+			}
+		}
+	};
+	
+	private Runnable KillJob = new Runnable() {
+		public void run() {
+			running = false;
+		}
+	};
+	
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 
 		RestaurantAdapter() {
