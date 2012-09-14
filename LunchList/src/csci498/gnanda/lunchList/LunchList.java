@@ -79,6 +79,15 @@ public class LunchList extends TabActivity {
 
 		setUpListAdapter();
 		setUpTabs();
+		
+		if (savedInstanceState != null) {
+			int tempProgress = savedInstanceState.getInt("progress");
+			if (tempProgress > 0) {
+				progress = tempProgress;
+				startWork();
+				name.setText("There was a saved instance state");
+			}
+		}
 	}
 	
 	@Override
@@ -95,6 +104,12 @@ public class LunchList extends TabActivity {
 		if (progress > 0) {
 			startWork();
 		}
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+		savedInstanceState.putInt("progress", progress);
 	}
 	
 	private void startWork() {
