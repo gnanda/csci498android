@@ -2,6 +2,7 @@ package csci498.gnanda.lunchList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.TabActivity;
 import android.graphics.Color;
@@ -37,14 +38,15 @@ public class LunchList extends TabActivity {
 	private EditText notes = null;
 	private Restaurant current = null;
 	private int progress;
+	private AtomicBoolean isActive = new AtomicBoolean(true);
 
 	private List<String> addresses = new ArrayList<String>();
 	private ArrayAdapter<String> addressesAdapter = null;
 
 	private Runnable longTask = new Runnable() {
 		public void run() {
-			for (int i = 0; i < 20; i++) {
-				doSomeLongWork(500);
+			for (int i = progress; i < 10000 && isActive.get(); i += 200) {
+				doSomeLongWork(200);
 			}
 			
 			runOnUiThread(new Runnable() {
@@ -74,6 +76,11 @@ public class LunchList extends TabActivity {
 
 		setUpListAdapter();
 		setUpTabs();
+	}
+	
+	public void onPause() {
+		super.onPause();
+		isActive.set(false);
 	}
 
 	private void setUpTabs() {
