@@ -90,14 +90,30 @@ public class LunchList extends TabActivity {
 		}
 	}
 	
+//	@Override
+//	public void onPause() {
+//		super.onPause();
+//		isActive.set(false);
+//	}
+//
+//	@Override
+//	public void onResume() {
+//		super.onResume();
+//		
+//		isActive.set(true);
+//		if (progress > 0) {
+//			startWork();
+//		}
+//	}
+	
 	@Override
-	public void onPause() {
+	public void onStop() {
 		super.onPause();
 		isActive.set(false);
 	}
 
 	@Override
-	public void onResume() {
+	public void onStart() {
 		super.onResume();
 		
 		isActive.set(true);
