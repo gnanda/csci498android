@@ -31,7 +31,6 @@ public class LunchList extends TabActivity {
 	private EditText name = null;
 	private AutoCompleteTextView address = null;
 	private EditText notes = null;
-	private Restaurant current = null;
 	private RestaurantHelper helper = null;
 
 	private List<String> addresses = new ArrayList<String>();
