@@ -2,19 +2,13 @@ package csci498.gnanda.lunchList;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -25,7 +19,6 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 @SuppressWarnings("deprecation")
 public class LunchList extends TabActivity {
@@ -37,34 +30,14 @@ public class LunchList extends TabActivity {
 	private AutoCompleteTextView address = null;
 	private EditText notes = null;
 	private Restaurant current = null;
-	private int progress;
-	private AtomicBoolean isActive = new AtomicBoolean(true);
 
 	private List<String> addresses = new ArrayList<String>();
 	private ArrayAdapter<String> addressesAdapter = null;
-
-	private Runnable longTask = new Runnable() {
-		public void run() {
-			for (int i = progress; i < 10000 && isActive.get(); i += 200) {
-				doSomeLongWork(200);
-			}
-			
-			if (isActive.get()) {
-				runOnUiThread(new Runnable() {
-					public void run() {
-						setProgressBarVisibility(false);
-						progress = 0;
-					}
-				});
-			}
-		}
-	};
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.main);
 
 		name = (EditText) findViewById(R.id.name);
@@ -79,27 +52,6 @@ public class LunchList extends TabActivity {
 
 		setUpListAdapter();
 		setUpTabs();
-	}
-	
-	@Override
-	public void onPause() {
-		super.onPause();
-		isActive.set(false);
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		
-		isActive.set(true);
-		if (progress > 0) {
-			startWork();
-		}
-	}
-	
-	private void startWork() {
-		setProgressBarVisibility(true);
-		new Thread(longTask).start();
 	}
 	
 	private void setUpTabs() {
@@ -179,44 +131,6 @@ public class LunchList extends TabActivity {
 			break;
 		}
 	}    
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		new MenuInflater(this).inflate(R.menu.option, menu);
-		return super.onCreateOptionsMenu(menu);		
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.toast) {
-			String message = "No restaurant selected";
-
-			if (current != null) {
-				message = current.getNotes();
-			}
-
-			Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-
-			return true;
-		}
-		else if (item.getItemId() == R.id.run) {
-			startWork();
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
-
-	private void doSomeLongWork(final int incr) {
-		runOnUiThread(new Runnable() {
-			public void run() {
-				progress += incr;
-				setProgress(progress);
-			}
-		});
-		
-		SystemClock.sleep(250);
-	}
 
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 
