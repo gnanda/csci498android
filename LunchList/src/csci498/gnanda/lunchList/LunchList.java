@@ -30,6 +30,7 @@ public class LunchList extends TabActivity {
 	private AutoCompleteTextView address = null;
 	private EditText notes = null;
 	private Restaurant current = null;
+	private RestaurantHelper helper = null;
 
 	private List<String> addresses = new ArrayList<String>();
 	private ArrayAdapter<String> addressesAdapter = null;
@@ -39,6 +40,8 @@ public class LunchList extends TabActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		helper = new RestaurantHelper(this);
 
 		name = (EditText) findViewById(R.id.name);
 		address = (AutoCompleteTextView) findViewById(R.id.addr);
@@ -54,6 +57,12 @@ public class LunchList extends TabActivity {
 		setUpTabs();
 	}
 	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();		
+		helper.close();
+	}
+
 	private void setUpTabs() {
 		TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
 		spec.setContent(R.id.restaurants);
