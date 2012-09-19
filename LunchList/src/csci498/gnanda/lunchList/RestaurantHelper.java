@@ -1,5 +1,6 @@
 package csci498.gnanda.lunchList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -22,5 +23,16 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Intentionally left unimplemented until 2nd schema version exists
 	}
+	
+	public void insert(String name, String address, String type, String notes) {
+		ContentValues cv = new ContentValues();
+		cv.put("name", name);
+		cv.put("address", address);
+		cv.put("type", type);
+		cv.put("notes", notes);
+		
+		getWritableDatabase().insert("Restaurants", "name", cv);
+	}
+
 
 }

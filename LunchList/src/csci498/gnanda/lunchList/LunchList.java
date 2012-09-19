@@ -58,11 +58,11 @@ public class LunchList extends TabActivity {
 	}
 	
 	@Override
-	protected void onDestroy() {
+	public void onDestroy() {
 		super.onDestroy();		
 		helper.close();
 	}
-
+	
 	private void setUpTabs() {
 		TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
 		spec.setContent(R.id.restaurants);
@@ -111,35 +111,26 @@ public class LunchList extends TabActivity {
 
 		@Override
 		public void onClick(View v) {
-			current = new Restaurant();
-			current.setName(name.getText().toString());
-			current.setAddress(address.getText().toString());
-			current.setNotes(notes.getText().toString());
+			String type = null;
+			
+			switch (types.getCheckedRadioButtonId()) {
+			case R.id.sit_down:
+				type = "sit_down";
+				break;
 
-			addRadioGroupType(current);
+			case R.id.take_out:
+				type = "take_out";
+				break;
 
-			adapter.add(current);
-			addressesAdapter.add(address.getText().toString());
+			case R.id.delivery:
+				type = "delivery";
+				break;
+			}
+			
+			helper.insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString());
 		}
 
 	};
-
-	private void addRadioGroupType(Restaurant r) {
-
-		switch (types.getCheckedRadioButtonId()) {
-		case R.id.sit_down:
-			r.setType("sit_down");
-			break;
-
-		case R.id.take_out:
-			r.setType("take_out");
-			break;
-
-		case R.id.delivery:
-			r.setType("delivery");
-			break;
-		}
-	}    
 
 	class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 
