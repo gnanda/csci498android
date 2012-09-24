@@ -15,12 +15,14 @@ public class DetailForm extends Activity {
 	private EditText notes = null;
 	private RadioGroup types = null;
 	private RestaurantHelper helper = null;
-	
+	private String restaurantId = null;	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detail_form);
+		getWidgetsFromXML();
+		restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
 	}
 	
 	private void getWidgetsFromXML() {

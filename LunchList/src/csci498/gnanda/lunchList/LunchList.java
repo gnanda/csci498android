@@ -11,21 +11,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
 public class LunchList extends ListActivity {
 
+	public static final String ID_EXTRA = "apt.tutorial._ID";
 	private Cursor model = null;
 	private RestaurantAdapter adapter = null;
 	private RadioGroup types = null;
@@ -58,41 +56,14 @@ public class LunchList extends ListActivity {
 		super.onDestroy();		
 		helper.close();
 	}
-
-	private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
-
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			Intent i = new Intent(LunchList.this, DetailForm.class);
-			startActivity(i);
-		}
-
-	};
-
-	private View.OnClickListener onSave = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			String type = null;
-			
-			switch (types.getCheckedRadioButtonId()) {
-			case R.id.sit_down:
-				type = "sit_down";
-				break;
-
-			case R.id.take_out:
-				type = "take_out";
-				break;
-
-			case R.id.delivery:
-				type = "delivery";
-				break;
-			}
-			
-			helper.insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString());
-			model.requery();
-		}
-
-	};
+	
+	@Override
+	public void onListItemClick(ListView list, View view, int position, long id) {
+		Intent i = new Intent(LunchList.this, DetailForm.class);
+		
+		i.putExtra(ID_EXTRA, String.valueOf(id));
+		startActivity(i);
+	}
 
 	class RestaurantAdapter extends CursorAdapter {
 
