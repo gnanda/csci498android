@@ -3,7 +3,7 @@ package csci498.gnanda.lunchList;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.TabActivity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,7 +24,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
-public class LunchList extends TabActivity {
+public class LunchList extends ListActivity {
 
 	private Cursor model = null;
 	private RestaurantAdapter adapter = null;
@@ -44,48 +44,19 @@ public class LunchList extends TabActivity {
 		setContentView(R.layout.main);
 		
 		helper = new RestaurantHelper(this);
+		model = helper.getAll();
+		startManagingCursor(model);
+		adapter = new RestaurantAdapter(model);
+		setListAdapter(adapter);
 
-		name = (EditText) findViewById(R.id.name);
-		address = (AutoCompleteTextView) findViewById(R.id.addr);
-		types = (RadioGroup) findViewById(R.id.types);
-		notes = (EditText) findViewById(R.id.notes);
 		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
-		address.setAdapter(addressesAdapter);
-
-		Button save = (Button) findViewById(R.id.save);
-		save.setOnClickListener(onSave);    
-
-		setUpCursorAdapter();
-		setUpTabs();
+		address.setAdapter(addressesAdapter); 
 	}
 	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();		
 		helper.close();
-	}
-	
-	private void setUpTabs() {
-		TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
-		spec.setContent(R.id.restaurants);
-		spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
-
-		getTabHost().addTab(spec);
-		spec = getTabHost().newTabSpec("tag2");
-		spec.setContent(R.id.details);
-		spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
-
-		getTabHost().addTab(spec);
-		getTabHost().setCurrentTab(0);
-	}
-
-	private void setUpCursorAdapter() {
-		ListView list = (ListView) findViewById(R.id.restaurants);
-		model = helper.getAll();
-		startManagingCursor(model);
-		adapter = new RestaurantAdapter(model);
-		list.setAdapter(adapter);
-		list.setOnItemClickListener(onListClick);
 	}
 
 	private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
