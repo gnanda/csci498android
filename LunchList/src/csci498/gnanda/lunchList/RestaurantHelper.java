@@ -25,6 +25,11 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 		// Intentionally left unimplemented until 2nd schema version exists
 	}
 	
+	public Cursor getById(String id) {
+		String[] args = {id};
+		return getReadableDatabase().rawQuery("SELECT _id, name, address, type, notes FROM restaurants WHERE _ID=?", args);
+	}
+	
 	public void insert(String name, String address, String type, String notes) {
 		ContentValues cv = new ContentValues();
 		cv.put("name", name);
