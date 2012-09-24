@@ -1,8 +1,5 @@
 package csci498.gnanda.lunchList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,13 +11,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.CursorAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
@@ -29,14 +22,7 @@ public class LunchList extends ListActivity {
 	public static final String ID_EXTRA = "apt.tutorial._ID";
 	private Cursor model = null;
 	private RestaurantAdapter adapter = null;
-	private RadioGroup types = null;
-	private EditText name = null;
-	private AutoCompleteTextView address = null;
-	private EditText notes = null;
 	private RestaurantHelper helper = null;
-
-	private List<String> addresses = new ArrayList<String>();
-	private ArrayAdapter<String> addressesAdapter = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -49,9 +35,6 @@ public class LunchList extends ListActivity {
 		startManagingCursor(model);
 		adapter = new RestaurantAdapter(model);
 		setListAdapter(adapter);
-
-		addressesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addresses);
-		address.setAdapter(addressesAdapter); 
 	}
 	
 	@Override

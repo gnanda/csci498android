@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 public class DetailForm extends Activity {
 	
 	private EditText name = null;
-	private AutoCompleteTextView address = null;
+	private EditText address = null;
 	private EditText notes = null;
 	private RadioGroup types = null;
 	private RestaurantHelper helper = null;
@@ -39,7 +39,7 @@ public class DetailForm extends Activity {
 
 	private void getWidgetsFromXML() {
 		name = (EditText) findViewById(R.id.name);
-		address = (AutoCompleteTextView) findViewById(R.id.addr);
+		address = (EditText) findViewById(R.id.addr);
 		types = (RadioGroup) findViewById(R.id.types);
 		notes = (EditText) findViewById(R.id.notes);
 		
