@@ -27,6 +27,16 @@ public class LunchList extends ListActivity {
 	private RestaurantHelper helper = null;
 	private SharedPreferences prefs = null;
 
+	private SharedPreferences.OnSharedPreferenceChangeListener prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+				
+		@Override
+		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+			if (key.equals("sort_order")) {
+				
+			}
+		}
+		
+	};
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +49,7 @@ public class LunchList extends ListActivity {
 		startManagingCursor(model);
 		adapter = new RestaurantAdapter(model);
 		setListAdapter(adapter);
+		prefs.registerOnSharedPreferenceChangeListener(prefListener);
 	}
 	
 	@Override
