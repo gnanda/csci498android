@@ -3,8 +3,10 @@ package csci498.gnanda.lunchList;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +25,7 @@ public class LunchList extends ListActivity {
 	private Cursor model = null;
 	private RestaurantAdapter adapter = null;
 	private RestaurantHelper helper = null;
+	private SharedPreferences prefs = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -30,8 +33,9 @@ public class LunchList extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		helper = new RestaurantHelper(this);
-		model = helper.getAll();
+		model = helper.getAll(prefs.getString("sort_order", "name"));
 		startManagingCursor(model);
 		adapter = new RestaurantAdapter(model);
 		setListAdapter(adapter);
