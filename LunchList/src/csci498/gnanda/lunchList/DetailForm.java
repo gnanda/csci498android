@@ -40,6 +40,11 @@ public class DetailForm extends Activity {
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
+		
+		name.setText(savedInstanceState.getString("name"));
+		address.setText(savedInstanceState.getString("address"));
+		notes.setText(savedInstanceState.getString("notes"));
+		types.check(savedInstanceState.getInt("type"));
 	}
 
 
