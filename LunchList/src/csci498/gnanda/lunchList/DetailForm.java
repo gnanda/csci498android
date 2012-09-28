@@ -37,6 +37,23 @@ public class DetailForm extends Activity {
 		helper.close();
 	}
 
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+	}
+
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		
+		outState.putString("name", name.getText().toString());
+		outState.putString("address", address.getText().toString());
+		outState.putString("notes", notes.getText().toString());
+		outState.putInt("type", types.getCheckedRadioButtonId());		
+	}
+
+
 	private void getWidgetsFromXML() {
 		name = (EditText) findViewById(R.id.name);
 		address = (EditText) findViewById(R.id.addr);
