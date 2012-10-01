@@ -3,6 +3,8 @@ package csci498.gnanda.lunchList;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,8 +32,7 @@ public class DetailForm extends Activity {
 			load();
 		}
 	}
-		
-	
+			
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -48,7 +49,6 @@ public class DetailForm extends Activity {
 		types.check(savedInstanceState.getInt("type"));
 	}
 
-
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -58,7 +58,6 @@ public class DetailForm extends Activity {
 		outState.putString("notes", notes.getText().toString());
 		outState.putInt("type", types.getCheckedRadioButtonId());		
 	}
-
 
 	private void getWidgetsFromXML() {
 		name = (EditText) findViewById(R.id.name);
@@ -92,6 +91,12 @@ public class DetailForm extends Activity {
 		c.close();
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		new MenuInflater(this).inflate(R.menu.details_options, menu);		
+		return super.onCreateOptionsMenu(menu);
+	}
+	
 	private View.OnClickListener onSave = new View.OnClickListener() {
 		
 		@Override
@@ -120,4 +125,5 @@ public class DetailForm extends Activity {
 			finish();
 		}
 	};
+	
 }
