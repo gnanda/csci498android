@@ -18,7 +18,7 @@ import android.widget.TextView;
 public class FeedActivity extends ListActivity {
 	
 	private InstanceState state = null;
-	public static final String FEED_URL = "apt.tutorial.FEED_URL";
+	public static final String FEED_URL = "csci498.gnanda.lunchList.FEED_URL";
 	
 	@SuppressWarnings("deprecation")
 	@Override
