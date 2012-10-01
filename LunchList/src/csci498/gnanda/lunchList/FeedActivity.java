@@ -20,6 +20,7 @@ public class FeedActivity extends ListActivity {
 	private InstanceState state = null;
 	public static final String FEED_URL = "apt.tutorial.FEED_URL";
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
