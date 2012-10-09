@@ -12,8 +12,8 @@ import android.util.Log;
 
 public class FeedService extends IntentService {
 	
-	private static final String EXTRA_URL = "csci498.gnanda.lunchlist.EXTRA_URL";
-	private static final String EXTRA_MESSENGER = "csci498.gnadna.lunchlist.EXTRA_MESSENGER";
+	public static final String EXTRA_URL = "csci498.gnanda.lunchlist.EXTRA_URL";
+	public static final String EXTRA_MESSENGER = "csci498.gnadna.lunchlist.EXTRA_MESSENGER";
 
 	public FeedService() {
 		super("FeedService");

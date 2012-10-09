@@ -2,13 +2,14 @@ package csci498.gnanda.lunchList;
 
 import org.mcsoxford.rss.RSSFeed;
 import org.mcsoxford.rss.RSSItem;
-import org.mcsoxford.rss.RSSReader;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Messenger;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,17 @@ public class FeedActivity extends ListActivity {
 		
 		if (state == null) {
 			state = new InstanceState();
-			state.task = new FeedTask(this);
-			state.task.execute(getIntent().getStringExtra(FEED_URL));
+			state.handler = new FeedHandler(this);
+			
+			Intent i = new Intent(this, FeedService.class);
+			
+			i.putExtra(FeedService.EXTRA_URL, getIntent().getStringExtra(FEED_URL));
+			i.putExtra(FeedService.EXTRA_MESSENGER, new Messenger(state.handler));
+			
 		}
 		else {
-			if (state.task != null) {
-				state.task.attach(this);
+			if (state.handler != null) {
+				state.handler.attach(this);
 			}
 			
 			if (state.feed != null) {
@@ -45,8 +51,8 @@ public class FeedActivity extends ListActivity {
 	
 	@Override
 	public Object onRetainNonConfigurationInstance() {
-		if (state.task != null) {
-			state.task.detach();
+		if (state.handler != null) {
+			state.handler.detach();
 		}
 		return state;
 	}
@@ -61,49 +67,33 @@ public class FeedActivity extends ListActivity {
 		builder.setTitle("Exception!").setMessage(t.toString()).setPositiveButton("OK", null).show();
 	}
 	
-	private static class FeedTask extends AsyncTask<String, Void, RSSFeed> {
+	private static class FeedHandler extends Handler {
 		
-		private RSSReader reader = new RSSReader();
-		private Exception e = null;
-		private FeedActivity activity = null;
+		FeedActivity activity = null;
 		
-		FeedTask(FeedActivity activity) {
+		FeedHandler(FeedActivity activity) {
 			attach(activity);
 		}
 		
-		private void attach(FeedActivity activity) {
+		void attach(FeedActivity activity) {
 			this.activity = activity;
 		}
 		
-		private void detach() {
+		void detach() {
 			this.activity = null;
 		}
-
-		@Override
-		public RSSFeed doInBackground(String... urls) {
-			RSSFeed result = null;
-			try {
-				result = reader.load(urls[0]);
-			}
-			catch (Exception e) {
-				this.e = e;
-			}
-			return result;
-		}
 		
 		@Override
-		public void onPostExecute(RSSFeed feed) {
-			if (e == null) {
-				activity.setFeed(feed);
+		public void handleMessage(Message msg) {
+			if (msg.arg1 == RESULT_OK) {
+				activity.setFeed((RSSFeed) msg.obj);
 			}
 			else {
-				Log.e("LunchList", "Exception parsing feed", e);
-				activity.goBlooey(e);
+				activity.goBlooey((Exception) msg.obj);
 			}
 		}
 		
-	}	
-	
+	}
 	private class FeedAdapter extends BaseAdapter {
 		
 		RSSFeed feed = null;
@@ -148,7 +138,7 @@ public class FeedActivity extends ListActivity {
 
 	private static class InstanceState {
 		RSSFeed feed = null;
-		FeedTask task = null;
+		FeedHandler handler = null;
 	}
 	
 }
