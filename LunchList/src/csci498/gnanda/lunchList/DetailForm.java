@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -23,8 +22,7 @@ public class DetailForm extends Activity {
 	private EditText feed = null;
 	private RadioGroup types = null;
 	private RestaurantHelper helper = null;
-	private String restaurantId = null;	
-	
+	private String restaurantId = null;		
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,15 +62,18 @@ public class DetailForm extends Activity {
 		outState.putInt("type", types.getCheckedRadioButtonId());		
 	}
 
+	@Override
+	public void onPause() {
+		save();
+		super.onPause();
+	}
+	
 	private void getWidgetsFromXML() {
 		name = (EditText) findViewById(R.id.name);
 		address = (EditText) findViewById(R.id.addr);
 		types = (RadioGroup) findViewById(R.id.types);
 		notes = (EditText) findViewById(R.id.notes);
 		feed = (EditText) findViewById(R.id.feed);
-		
-		Button save = (Button) findViewById(R.id.save);
-		save.setOnClickListener(onSave);
 	}
 	
 	private void load() {
@@ -125,33 +126,29 @@ public class DetailForm extends Activity {
 		return info != null;
 	}
 
-	private View.OnClickListener onSave = new View.OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			String type = null;
-			
-			switch (types.getCheckedRadioButtonId()) {
-			case R.id.sit_down:
-				type = "sit_down";
-				break;
-			case R.id.take_out:
-				type = "take_out";
-				break;
-			case R.id.delivery:
-				type = "delivery";
-				break;
-			}
-			
-			if (restaurantId == null) {
-				helper.insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
-			}
-			else {
-				helper.update(restaurantId, name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
-			}
-			
-			finish();
+	private void save() {
+		String type = null;
+
+		switch (types.getCheckedRadioButtonId()) {
+		case R.id.sit_down:
+			type = "sit_down";
+			break;
+		case R.id.take_out:
+			type = "take_out";
+			break;
+		case R.id.delivery:
+			type = "delivery";
+			break;
 		}
-	};
+
+		if (restaurantId == null) {
+			helper.insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
+		}
+		else {
+			helper.update(restaurantId, name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
+		}
+
+		finish();
+	}
 	
 }
