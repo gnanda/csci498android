@@ -3,6 +3,9 @@ package csci498.gnanda.lunchList;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -25,12 +28,15 @@ public class DetailForm extends Activity {
 	private String restaurantId;		
 	private TextView location;
 	
+	private LocationManager locMgr;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detail_form);
 		helper=new RestaurantHelper(this);
 		getWidgetsFromXML();
+		locMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
 		restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
 		if (restaurantId != null) {
 			load();
@@ -66,6 +72,7 @@ public class DetailForm extends Activity {
 	@Override
 	public void onPause() {
 		save();
+		locMgr.removeUpdates(onLocationChange);
 		super.onPause();
 	}
 	
@@ -97,7 +104,7 @@ public class DetailForm extends Activity {
 			types.check(R.id.delivery);
 		}
 		
-		location.setText(String.valueOf(helper.getLatitude(c)) + ", " + String.valueOf(helper.getLongitude(c)));
+		location.setText(getLocationOutput(helper.getLatitude(c), helper.getLongitude(c)));
 		c.close();
 	}
 	
@@ -120,8 +127,43 @@ public class DetailForm extends Activity {
 			}
 			return true;
 		}
+		else if (item.getItemId() == R.id.location) {
+			locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, onLocationChange);
+			return true;
+		}
 		
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private LocationListener onLocationChange = new LocationListener() {
+		
+		@Override
+		public void onLocationChanged(Location fix) {
+			helper.updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
+			location.setText(getLocationOutput(fix.getLatitude(), fix.getLongitude()));
+			locMgr.removeUpdates(onLocationChange);
+			Toast.makeText(DetailForm.this, "Location saved", Toast.LENGTH_LONG).show();
+		}
+		
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			// Not used		
+		}
+		
+		@Override
+		public void onProviderEnabled(String provider) {
+			// Not used				
+		}
+		
+		@Override
+		public void onProviderDisabled(String provider) {
+			// Not used			
+		}		
+
+	};
+	
+	private String getLocationOutput(Object latitude, Object longitude) {
+		return String.valueOf(latitude) + ", " + String.valueOf(longitude);
 	}
 	
 	private boolean isNetworkAvailable() {
