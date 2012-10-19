@@ -9,20 +9,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetailForm extends Activity {
 	
-	private EditText name = null;
-	private EditText address = null;
-	private EditText notes = null;
-	private EditText feed = null;
-	private RadioGroup types = null;
-	private RestaurantHelper helper = null;
-	private String restaurantId = null;		
+	private EditText name;
+	private EditText address;
+	private EditText notes;
+	private EditText feed;
+	private RadioGroup types;
+	private RestaurantHelper helper;
+	private String restaurantId;		
+	private TextView location;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
