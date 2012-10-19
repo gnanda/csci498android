@@ -75,6 +75,7 @@ public class DetailForm extends Activity {
 		types = (RadioGroup) findViewById(R.id.types);
 		notes = (EditText) findViewById(R.id.notes);
 		feed = (EditText) findViewById(R.id.feed);
+		location = (TextView) findViewById(R.id.location);
 	}
 	
 	private void load() {
@@ -95,6 +96,8 @@ public class DetailForm extends Activity {
 		else {
 			types.check(R.id.delivery);
 		}
+		
+		location.setText(String.valueOf(helper.getLatitude(c)) + ", " + String.valueOf(helper.getLongitude(c)));
 		c.close();
 	}
 	
