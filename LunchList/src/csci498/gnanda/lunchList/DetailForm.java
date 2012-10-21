@@ -36,12 +36,12 @@ public class DetailForm extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detail_form);
-		helper=new RestaurantHelper(this);
+		helper = new RestaurantHelper(this);
 		getWidgetsFromXML();
 		locMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
 		restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
 		if (restaurantId != null) {
-			load();
+			load();			
 		}
 	}
 			
@@ -116,8 +116,8 @@ public class DetailForm extends Activity {
 			types.check(R.id.delivery);
 		}
 		
-		latitude = Double.valueOf(helper.getLatitude(c));
-		longitude = Double.valueOf(helper.getLongitude(c));
+		latitude = helper.getLatitude(c);
+		longitude = helper.getLongitude(c);
 		
 		location.setText(getLocationOutput(helper.getLatitude(c), helper.getLongitude(c)));
 		c.close();

@@ -22,6 +22,7 @@
         <activity android:name="FeedActivity"></activity>
         <service android:name="FeedService"></service>
         <uses-library android:required="true" android:name="com.google.android.maps"/>
+        <activity android:name="RestaurantMap"></activity>
 
     </application>
 </manifest>

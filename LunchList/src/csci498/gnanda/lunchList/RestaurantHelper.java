@@ -97,12 +97,12 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 		return c.getString(5);
 	}
 	
-	public String getLatitude(Cursor c) {
-		return c.getString(6);
+	public double getLatitude(Cursor c) {
+		return c.getDouble(6);
 	}
 	
-	public String getLongitude(Cursor c) {
-		return c.getString(7);
+	public double getLongitude(Cursor c) {
+		return c.getDouble(7);
 	}
 	
 }
