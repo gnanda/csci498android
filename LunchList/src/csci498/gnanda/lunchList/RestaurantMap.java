@@ -1,7 +1,9 @@
 package csci498.gnanda.lunchList;
 
+import android.R.bool;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -63,6 +65,12 @@ public class RestaurantMap extends MapActivity {
 		@Override
 		public int size() {
 			return 1;
+		}
+		
+		@Override
+		protected boolean onTap(int i) {
+			Toast.makeText(RestaurantMap.this, item.getSnippet(), Toast.LENGTH_SHORT).show();
+			return true;
 		}
 		
 	}
