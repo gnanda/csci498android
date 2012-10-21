@@ -27,6 +27,8 @@ public class DetailForm extends Activity {
 	private RestaurantHelper helper;
 	private String restaurantId;		
 	private TextView location;
+	private double latitude = 0.0d;
+	private double longitude = 0.0d;
 	
 	private LocationManager locMgr;
 	
@@ -114,6 +116,9 @@ public class DetailForm extends Activity {
 			types.check(R.id.delivery);
 		}
 		
+		latitude = Double.valueOf(helper.getLatitude(c));
+		longitude = Double.valueOf(helper.getLongitude(c));
+		
 		location.setText(getLocationOutput(helper.getLatitude(c), helper.getLongitude(c)));
 		c.close();
 	}
@@ -143,6 +148,11 @@ public class DetailForm extends Activity {
 		}
 		else if (item.getItemId() == R.id.map) {
 			Intent i = new Intent(this, RestaurantMap.class);
+			
+			i.putExtra(RestaurantMap.EXTRA_LATITUDE, latitude);
+			i.putExtra(RestaurantMap.EXTRA_LONGITUDE, longitude);
+			i.putExtra(RestaurantMap.EXTRA_NAME, name.getText().toString());
+			
 			startActivity(i);
 			return true;
 		}
