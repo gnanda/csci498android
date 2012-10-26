@@ -7,6 +7,16 @@
         android:entries="@array/sort_names"
         android:entryValues="@array/sort_clauses"
         android:dialogTitle="Choose a sort order" />
-    
-
+    <CheckBoxPreference 
+        android:key="alarm"
+        android:title="@string/sound_lunch_alarm"
+        android:summary="@string/time_for_lunch_summary"
+        />
+    <csci498.gnanda.lunchList.TimePreference
+        android:key="alarm_time"
+        android:title="@string/lunch_alarm_time"
+        android:defaultValue="12:00"
+        android:summary="@string/set_your_desired_time"
+        android:dependency="alarm"
+        />
 </PreferenceScreen>
