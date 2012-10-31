@@ -7,4 +7,9 @@
     <string name="lunch_alarm_time">Lunch Alarm Time</string>
     <string name="set_your_desired_time">Set your desired time for the lunch alarm</string>
     <string name="time_for_lunch">It\'s time for lunch!</string>
+    <string name="choose_the_order">Choose the order the list uses</string>
+    <string name="choose_sort_order">Choose a sort order</string>
+    <string name="status_bar_icon_at_lunchtime_checkbox">Check if you want a status bar icon at lunchtime, or uncheck for a full-screen notice</string>
+    <string name="use_notification">Use a notification</string>
+    <string name="time_for_lunch_message">It\'s time for lunch! Aren\'t you hungry?</string>
 </resources>

@@ -3,10 +3,10 @@
     <ListPreference
         android:key="sort_order"
         android:title="Sort Order"
-        android:summary="Choose the order the list uses"
+        android:summary="@string/choose_the_order"
         android:entries="@array/sort_names"
         android:entryValues="@array/sort_clauses"
-        android:dialogTitle="Choose a sort order" />
+        android:dialogTitle="@string/choose_sort_order" />
     <CheckBoxPreference 
         android:key="alarm"
         android:title="@string/sound_lunch_alarm"
@@ -17,6 +17,13 @@
         android:title="@string/lunch_alarm_time"
         android:defaultValue="12:00"
         android:summary="@string/set_your_desired_time"
+        android:dependency="alarm"
+        />
+    <CheckBoxPreference 
+        android:key="use_notification"
+        android:title="@string/use_notification"
+        android:defaultValue="true"
+        android:summary="@string/status_bar_icon_at_lunchtime_checkbox"
         android:dependency="alarm"
         />
 </PreferenceScreen>
