@@ -8,6 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class RestaurantHelper extends SQLiteOpenHelper {
 	
+	private static final String FEED2 = "feed";
+	private static final String NOTES2 = "notes";
+	private static final String TYPE2 = "type";
+	private static final String ADDRESS2 = "address";
+	private static final String NAME2 = "name";
+	private static final String ADD_COLUMN_LON = "ALTER TABLE restaurants ADD COLUMN lon REAL";
+	private static final String ADD_COLUMN_LAT = "ALTER TABLE restaurants ADD COLUMN lat REAL";
+	private static final String ADD_COLUMN_FEED = "ALTER TABLE restaurants ADD COLUMN feed TEXT";
 	private static final String DATABASE_NAME = "lunchlist.db";
 	private static final String CREATE_TABLE_SQL = "CREATE TABLE restaurants (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, type TEXT, notes TEXT, feed TEXT, lat REAL, lon REAL);";
 	private static final String SELECT_BY_ID_SQL = "SELECT _id, name, address, type, notes, feed, lat, lon FROM restaurants WHERE _ID=?";
@@ -26,12 +34,12 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (oldVersion < 2) {
-			db.execSQL("ALTER TABLE restaurants ADD COLUMN feed TEXT");
+			db.execSQL(ADD_COLUMN_FEED);
 		}
 		
 		if (oldVersion < 3) {
-			db.execSQL("ALTER TABLE restaurants ADD COLUMN lat REAL");
-			db.execSQL("ALTER TABLE restaurants ADD COLUMN lon REAL");
+			db.execSQL(ADD_COLUMN_LAT);
+			db.execSQL(ADD_COLUMN_LON);
 		}		
 	}
 	
@@ -43,24 +51,24 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 	public void update(String id, String name, String address, String type, String notes, String feed) {
 		ContentValues cv = new ContentValues();
 		String[] args = {id};
-		cv.put("name", name);
-		cv.put("address", address);
-		cv.put("type", type);
-		cv.put("notes", notes);
-		cv.put("feed", feed);
+		cv.put(NAME2, name);
+		cv.put(ADDRESS2, address);
+		cv.put(TYPE2, type);
+		cv.put(NOTES2, notes);
+		cv.put(FEED2, feed);
 		
 		getWritableDatabase().update("restaurants", cv, "_ID=?", args);
 	}
 	
 	public void insert(String name, String address, String type, String notes, String feed) {
 		ContentValues cv = new ContentValues();
-		cv.put("name", name);
-		cv.put("address", address);
-		cv.put("type", type);
-		cv.put("notes", notes);
-		cv.put("feed", feed);
+		cv.put(NAME2, name);
+		cv.put(ADDRESS2, address);
+		cv.put(TYPE2, type);
+		cv.put(NOTES2, notes);
+		cv.put(FEED2, feed);
 		
-		getWritableDatabase().insert("Restaurants", "name", cv);
+		getWritableDatabase().insert("Restaurants", NAME2, cv);
 	}
 	
 	public void updateLocation(String id, double lat, double lon) {

@@ -15,7 +15,7 @@
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Click the MENU button to add a restaurant"
+        android:text="@string/click_menu_button"
         />
 
 </LinearLayout>

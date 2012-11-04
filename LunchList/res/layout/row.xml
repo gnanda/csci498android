@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="4dip" >
-
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ball_green" />
-
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

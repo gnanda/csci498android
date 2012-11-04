@@ -19,6 +19,12 @@ import android.widget.Toast;
 
 public class DetailForm extends Activity {
 	
+	private static final String TAKE_OUT = "take_out";
+	private static final String SIT_DOWN = "sit_down";
+	private static final String TYPE = "type";
+	private static final String NOTES2 = "notes";
+	private static final String ADDRESS2 = "address";
+	private static final String NAME2 = "name";
 	private EditText name;
 	private EditText address;
 	private EditText notes;
@@ -55,20 +61,20 @@ public class DetailForm extends Activity {
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		
-		name.setText(savedInstanceState.getString("name"));
-		address.setText(savedInstanceState.getString("address"));
-		notes.setText(savedInstanceState.getString("notes"));
-		types.check(savedInstanceState.getInt("type"));
+		name.setText(savedInstanceState.getString(NAME2));
+		address.setText(savedInstanceState.getString(ADDRESS2));
+		notes.setText(savedInstanceState.getString(NOTES2));
+		types.check(savedInstanceState.getInt(TYPE));
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		
-		outState.putString("name", name.getText().toString());
-		outState.putString("address", address.getText().toString());
-		outState.putString("notes", notes.getText().toString());
-		outState.putInt("type", types.getCheckedRadioButtonId());		
+		outState.putString(NAME2, name.getText().toString());
+		outState.putString(ADDRESS2, address.getText().toString());
+		outState.putString(NOTES2, notes.getText().toString());
+		outState.putInt(TYPE, types.getCheckedRadioButtonId());		
 	}
 
 	@Override
@@ -106,10 +112,10 @@ public class DetailForm extends Activity {
 		notes.setText(helper.getNotes(c));
 		feed.setText(helper.getFeed(c));
 		
-		if (helper.getType(c).equals("sit_down")) {
+		if (helper.getType(c).equals(SIT_DOWN)) {
 			types.check(R.id.sit_down);
 		}
-		else if (helper.getType(c).equals("take_out")) {
+		else if (helper.getType(c).equals(TAKE_OUT)) {
 			types.check(R.id.take_out);
 		}
 		else {
@@ -138,7 +144,7 @@ public class DetailForm extends Activity {
 				startActivity(i);
 			}
 			else {
-				Toast.makeText(this, "Sorry, the Internet is not available", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.internet_not_available, Toast.LENGTH_LONG).show();
 			}
 			return true;
 		}
@@ -167,7 +173,7 @@ public class DetailForm extends Activity {
 			helper.updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
 			location.setText(getLocationOutput(fix.getLatitude(), fix.getLongitude()));
 			locMgr.removeUpdates(onLocationChange);
-			Toast.makeText(DetailForm.this, "Location saved", Toast.LENGTH_LONG).show();
+			Toast.makeText(DetailForm.this, R.string.location_saved, Toast.LENGTH_LONG).show();
 		}
 		
 		@Override
@@ -202,10 +208,10 @@ public class DetailForm extends Activity {
 
 		switch (types.getCheckedRadioButtonId()) {
 		case R.id.sit_down:
-			type = "sit_down";
+			type = SIT_DOWN;
 			break;
 		case R.id.take_out:
-			type = "take_out";
+			type = TAKE_OUT;
 			break;
 		case R.id.delivery:
 			type = "delivery";

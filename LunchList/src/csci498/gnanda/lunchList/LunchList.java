@@ -21,6 +21,7 @@ import android.widget.TextView;
 @SuppressWarnings("deprecation")
 public class LunchList extends ListActivity {
 
+	private static final String SORT_ORDER = "sort_order";
 	public static final String ID_EXTRA = "apt.tutorial._ID";
 	private Cursor model = null;
 	private RestaurantAdapter adapter = null;
@@ -31,7 +32,7 @@ public class LunchList extends ListActivity {
 				
 		@Override
 		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-			if (key.equals("sort_order")) {
+			if (key.equals(SORT_ORDER)) {
 				initList();
 			}
 		}
@@ -56,7 +57,7 @@ public class LunchList extends ListActivity {
 			model.close();
 		}
 		
-		model = helper.getAll(prefs.getString("sort_order", "name"));
+		model = helper.getAll(prefs.getString(SORT_ORDER, "name"));
 		startManagingCursor(model);
 		adapter = new RestaurantAdapter(model);
 		setListAdapter(adapter);

@@ -10,7 +10,7 @@
 
         <TableRow>
 
-            <TextView android:text="Name:" />
+            <TextView android:text="@string/name" />
             
             <EditText android:id="@+id/name" />
             
@@ -18,7 +18,7 @@
 
         <TableRow>
 
-            <TextView android:text="Address:" />
+            <TextView android:text="@string/address" />
             
             <EditText android:id="@+id/addr" />
             
@@ -26,22 +26,22 @@
 
         <TableRow>
 
-            <TextView android:text="Type:" />
+            <TextView android:text="@string/type" />
 
             <RadioGroup android:id="@+id/types" >
 
                 <RadioButton
                     android:id="@+id/take_out"
                     android:checked="true"
-                    android:text="Take-Out" />
+                    android:text="@string/take_out" />
 
                 <RadioButton
                     android:id="@+id/sit_down"
-                    android:text="Sit-Down" />
+                    android:text="@string/sit_down" />
 
                 <RadioButton
                     android:id="@+id/delivery"
-                    android:text="Delivery" />
+                    android:text="@string/delivery" />
                 
             </RadioGroup>
             
@@ -56,13 +56,13 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location: " />
+                android:text="@string/location" />
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(not set)"
+                android:text="@string/not_set"
                  />
 
         </TableRow>
@@ -70,7 +70,7 @@
         <EditText
             android:id="@+id/notes"
             android:gravity="top"
-            android:hint="Notes"
+            android:hint="@string/notes"
             android:inputType="textMultiLine"
             android:lines="2"
             android:maxLines="2"
@@ -78,10 +78,8 @@
 
         <EditText
             android:id="@+id/feed"
-            android:hint="Feed URL" />
+            android:hint="@string/feed_url" />
 
-
-        
     </TableLayout>
 
 </ScrollView>
