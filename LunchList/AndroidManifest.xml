@@ -26,6 +26,11 @@
         <receiver android:name="OnBootReceiver" android:enabled="false"></receiver>
         <activity android:name="AlarmActivity"></activity>
         <receiver android:name="OnAlarmReceiver"></receiver>
+        <receiver android:name="AppWidget">
+            <intent-filter>
+                <action android:name="android.app.action.ACTION_PASSWORD_CHANGED"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 </manifest>
