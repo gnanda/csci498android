@@ -25,4 +25,6 @@
     <string name="notes">Notes</string>
     <string name="feed_url">Feed URL</string>
     <string name="click_menu_button">Click the MENU button to add a restaurant</string>
+    <string name="none"/>
+    <string name="empty">No restaurants!</string>
 </resources>
