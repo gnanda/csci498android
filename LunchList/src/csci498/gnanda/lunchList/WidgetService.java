@@ -10,10 +10,14 @@ import android.widget.RemoteViews;
 
 public class WidgetService extends IntentService {
 
+	private static final String SELECT_ID_NAME_FROM_RESTAURANTS = "SELECT _ID, name FROM restaurants LIMIT 1 OFFSET ?";
+	private static final String SELECT_COUNT_FROM_RESTAURANTS = "SELECT COUNT(*) FROM restaurants";
+
 	public WidgetService() {
 		super("WidgetService");
 	}
 
+	// TODO: Change raw query to use database helper
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		ComponentName me = new ComponentName(this, AppWidget.class);
@@ -22,7 +26,7 @@ public class WidgetService extends IntentService {
 		AppWidgetManager mgr = AppWidgetManager.getInstance(this);
 		
 		try {
-			Cursor c = helper.getReadableDatabase().rawQuery("SELECT COUNT(*) FROM restaurants", null);
+			Cursor c = helper.getReadableDatabase().rawQuery(SELECT_COUNT_FROM_RESTAURANTS, null);
 			c.moveToFirst();
 			
 			int count = c.getInt(0);
@@ -30,7 +34,7 @@ public class WidgetService extends IntentService {
 			if (count > 0) {
 				int offset = (int) (count*Math.random());
 				String args[] = {String.valueOf(offset)};
-				c = helper.getReadableDatabase().rawQuery("SELECT _ID, name FROM restaurants LIMIT 1 OFFSET ?", args);
+				c = helper.getReadableDatabase().rawQuery(SELECT_ID_NAME_FROM_RESTAURANTS, args);
 				c.moveToFirst();
 				updateViews.setTextViewText(R.id.name, c.getString(1));
 				
