@@ -10,12 +10,12 @@ import android.widget.RemoteViewsService.RemoteViewsFactory;
 public class ListViewsFactory implements RemoteViewsFactory {
 	
 	private static final String SELECT_ID_NAME_FROM_RESTAURANTS = "SELECT _ID, name FROM restaurants";
-	private Context ctx;
+	private Context ctxt;
 	private RestaurantHelper helper;
 	private Cursor restuarants;
 
 	public ListViewsFactory(Context applicationContext, Intent intent) {
-		this.ctx = applicationContext;
+		this.ctxt = applicationContext;
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class ListViewsFactory implements RemoteViewsFactory {
 
 	@Override
 	public RemoteViews getViewAt(int position) {
-		RemoteViews row = new RemoteViews(ctx.getPackageName(), R.layout.widget_row);
+		RemoteViews row = new RemoteViews(ctxt.getPackageName(), R.layout.widget_row);
 		restuarants.moveToPosition(position);
 		row.setTextViewText(android.R.id.text1, restuarants.getString(1));
 		
@@ -62,7 +62,7 @@ public class ListViewsFactory implements RemoteViewsFactory {
 	// TODO: Change raw query to use database helper
 	@Override
 	public void onCreate() {
-		helper = new RestaurantHelper(ctx);
+		helper = new RestaurantHelper(ctxt);
 		restuarants = helper.getReadableDatabase().rawQuery(SELECT_ID_NAME_FROM_RESTAURANTS, null);
 	}
 
