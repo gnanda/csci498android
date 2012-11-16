@@ -1,6 +1,6 @@
 package csci498.gnanda.lunchList;
 
-import android.app.Fragment;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,10 +26,6 @@ public class DetailFragment extends Fragment {
 	
 	private static final String TAKE_OUT = "take_out";
 	private static final String SIT_DOWN = "sit_down";
-	private static final String TYPE = "type";
-	private static final String NOTES2 = "notes";
-	private static final String ADDRESS2 = "address";
-	private static final String NAME2 = "name";
 	private EditText name;
 	private EditText address;
 	private EditText notes;
@@ -37,11 +34,10 @@ public class DetailFragment extends Fragment {
 	private RestaurantHelper helper;
 	private String restaurantId;		
 	private TextView location;
+	private LocationManager locMgr;
 	private double latitude = 0.0d;
 	private double longitude = 0.0d;
-	
-	private LocationManager locMgr;
-	
+		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,6 +47,7 @@ public class DetailFragment extends Fragment {
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		locMgr = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 		getWidgetsFromXML();
 	}
@@ -89,12 +86,12 @@ public class DetailFragment extends Fragment {
 	}
 	
 	private void getWidgetsFromXML() {
-		name = (EditText) getActivity().findViewById(R.id.name);
-		address = (EditText) getActivity().findViewById(R.id.addr);
-		types = (RadioGroup) getActivity().findViewById(R.id.types);
-		notes = (EditText) getActivity().findViewById(R.id.notes);
-		feed = (EditText) getActivity().findViewById(R.id.feed);
-		location = (TextView) getActivity().findViewById(R.id.location);
+		name = (EditText) getView().findViewById(R.id.name);
+		address = (EditText) getView().findViewById(R.id.addr);
+		types = (RadioGroup) getView().findViewById(R.id.types);
+		notes = (EditText) getView().findViewById(R.id.notes);
+		feed = (EditText) getView().findViewById(R.id.feed);
+		location = (TextView) getView().findViewById(R.id.location);
 	}
 	
 	private void load() {
