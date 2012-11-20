@@ -26,6 +26,7 @@ public class DetailFragment extends Fragment {
 	
 	private static final String TAKE_OUT = "take_out";
 	private static final String SIT_DOWN = "sit_down";
+	private static final String ARG_REST_ID = "csci498.gnanda.lunchList.ARG_REST_ID";
 	private EditText name;
 	private EditText address;
 	private EditText notes;
@@ -48,8 +49,32 @@ public class DetailFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
 		locMgr = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 		getWidgetsFromXML();
+		
+		Bundle args = getArguments();
+		if (args != null) {
+			loadRestaurant(args.getString(ARG_REST_ID));
+		}
+	}
+	
+	public void loadRestaurant(String restaurantId) {
+		this.restaurantId = restaurantId;
+		
+		if (restaurantId != null) {
+			load();
+		}
+	}
+	
+	public static DetailFragment newInstance(long id) {
+		DetailFragment result = new DetailFragment();
+		Bundle args = new Bundle();
+		
+		args.putString(ARG_REST_ID, String.valueOf(id));
+		result.setArguments(args);
+		
+		return result;
 	}
 
 	@Override
@@ -60,16 +85,11 @@ public class DetailFragment extends Fragment {
 		super.onPause();
 	}
 	
-	@Override
-	public void onResume() {
-		super.onResume();
-		
-		helper = new RestaurantHelper(getActivity());
-		restaurantId = getActivity().getIntent().getStringExtra(LunchList.ID_EXTRA);
-		
-		if (restaurantId != null) {
-			load();
+	public RestaurantHelper getHelper() {
+		if (helper == null) {
+			helper = new RestaurantHelper(getActivity());
 		}
+		return helper;
 	}
 	
 	@Override
@@ -95,28 +115,28 @@ public class DetailFragment extends Fragment {
 	}
 	
 	private void load() {
-		Cursor c = helper.getById(restaurantId);
+		Cursor c = getHelper().getById(restaurantId);
 		
 		c.moveToFirst();
-		name.setText(helper.getName(c));
-		address.setText(helper.getAddress(c));
-		notes.setText(helper.getNotes(c));
-		feed.setText(helper.getFeed(c));
+		name.setText(getHelper().getName(c));
+		address.setText(getHelper().getAddress(c));
+		notes.setText(getHelper().getNotes(c));
+		feed.setText(getHelper().getFeed(c));
 		
-		if (helper.getType(c).equals(SIT_DOWN)) {
+		if (getHelper().getType(c).equals(SIT_DOWN)) {
 			types.check(R.id.sit_down);
 		}
-		else if (helper.getType(c).equals(TAKE_OUT)) {
+		else if (getHelper().getType(c).equals(TAKE_OUT)) {
 			types.check(R.id.take_out);
 		}
 		else {
 			types.check(R.id.delivery);
 		}
 		
-		latitude = helper.getLatitude(c);
-		longitude = helper.getLongitude(c);
+		latitude = getHelper().getLatitude(c);
+		longitude = getHelper().getLongitude(c);
 		
-		location.setText(getLocationOutput(helper.getLatitude(c), helper.getLongitude(c)));
+		location.setText(getLocationOutput(getHelper().getLatitude(c), getHelper().getLongitude(c)));
 		c.close();
 	}
 	
@@ -160,7 +180,7 @@ public class DetailFragment extends Fragment {
 		
 		@Override
 		public void onLocationChanged(Location fix) {
-			helper.updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
+			getHelper().updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
 			location.setText(getLocationOutput(fix.getLatitude(), fix.getLongitude()));
 			locMgr.removeUpdates(onLocationChange);
 			Toast.makeText(getActivity(), R.string.location_saved, Toast.LENGTH_LONG).show();
@@ -209,10 +229,10 @@ public class DetailFragment extends Fragment {
 		}
 
 		if (restaurantId == null) {
-			helper.insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
+			getHelper().insert(name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
 		}
 		else {
-			helper.update(restaurantId, name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
+			getHelper().update(restaurantId, name.getText().toString(), address.getText().toString(), type, notes.getText().toString(), feed.getText().toString());
 		}
 	}
 	
