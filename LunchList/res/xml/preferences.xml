@@ -26,4 +26,11 @@
         android:summary="@string/status_bar_icon_at_lunchtime_checkbox"
         android:dependency="alarm"
         />
+    <RingtonePreference 
+        android:key="alarm_ringtone"
+        android:title="@string/alarm_ringtone"
+        android:summary="@string/indicate_ringtone"
+        android:showSilent="true"
+        android:dependency="alarm"
+        />
 </PreferenceScreen>

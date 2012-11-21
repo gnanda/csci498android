@@ -27,4 +27,6 @@
     <string name="click_menu_button">Click the MENU button to add a restaurant</string>
     <string name="none"/>
     <string name="empty">No restaurants!</string>
+    <string name="alarm_ringtone">Alarm Ringtone</string>
+    <string name="indicate_ringtone">Indicate the ringtone to play when it\'s lunchtime</string>
 </resources>
