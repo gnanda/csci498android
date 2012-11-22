@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-feature android:name="andriod.hardware.telephony" android:required="false" />
 
     <application android:icon="@drawable/coffee_cup" android:label="@string/app_name">
         <activity android:name="LunchList"
