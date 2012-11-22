@@ -4,6 +4,6 @@
     <item android:id="@+id/location" android:icon="@drawable/ic_menu_compass" android:title="Save Location"></item>
     <item android:id="@+id/map" android:icon="@drawable/ic_menu_mapmode" android:title="Show on Map"></item>
     <item android:id="@+id/help" android:title="Help" android:icon="@drawable/ic_menu_help"></item>
-    
+    <item android:id="@+id/call" android:title="Call" android:enabled="false" android:icon="@drawable/ic_menu_call"></item>
 
 </menu>
