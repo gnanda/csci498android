@@ -122,6 +122,7 @@ public class DetailFragment extends Fragment {
 		c.moveToFirst();
 		name.setText(getHelper().getName(c));
 		address.setText(getHelper().getAddress(c));
+		phone.setText(getHelper().getPhone(c));
 		notes.setText(getHelper().getNotes(c));
 		feed.setText(getHelper().getFeed(c));
 		

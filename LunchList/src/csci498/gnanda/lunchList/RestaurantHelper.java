@@ -21,7 +21,7 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "lunchlist.db";
 	private static final String CREATE_TABLE_SQL = "CREATE TABLE restaurants (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, type TEXT, notes TEXT, feed TEXT, lat REAL, lon REAL, phone TEXT);";
 	private static final String SELECT_BY_ID_SQL = "SELECT _id, name, address, type, notes, feed, lat, lon, phone FROM restaurants WHERE _ID=?";
-	private static final String SELECT_ALL_SQL = "SELECT _id, name, address, type, notes, feed, lat, phone lon FROM restaurants ORDER BY ";
+	private static final String SELECT_ALL_SQL = "SELECT _id, name, address, type, notes, feed, lat, lon, phone FROM restaurants ORDER BY ";
 	public static final int SCHEMA_VERSION = 4;
 	
 	public RestaurantHelper(Context context) {
