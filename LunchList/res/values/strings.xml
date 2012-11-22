@@ -29,4 +29,5 @@
     <string name="empty">No restaurants!</string>
     <string name="alarm_ringtone">Alarm Ringtone</string>
     <string name="indicate_ringtone">Indicate the ringtone to play when it\'s lunchtime</string>
+    <string name="phone">"Phone: "</string>
 </resources>
